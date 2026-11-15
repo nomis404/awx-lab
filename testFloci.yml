@@ -5,8 +5,10 @@
   tasks:
     - name: Create bucket
       shell: |
-        aws s3 mb s3://simon-bucket \
-        --region ap-south-1
+        aws \
+        --endpoint-url=http://host.docker.internal:4566 \
+        --region us-east-1 \
+        s3 mb s3://simon-bucket
       register: result
     - debug:
         var: result.stdout_lines
