@@ -1,14 +1,16 @@
 ---
 - hosts: localhost
-  connection: local
-  gather_facts: false
-  tasks:
-    - name: Create bucket
-      shell: |
-        aws \
-        --endpoint-url=http://host.docker.internal:4566 \
-        --region us-east-1 \
-        s3 mb s3://simon-bucket
-      register: result
-    - debug:
-        var: result.stdout_lines
+  connection: local
+  gather_facts: false
+
+  tasks:
+    - name: Create bucket in Floci
+      uri:
+        url: "http://host.docker.internal:4566/simon-bucket"
+        method: PUT
+        status_code: 200
+
+      register: result
+
+    - debug:
+        var: result.status
