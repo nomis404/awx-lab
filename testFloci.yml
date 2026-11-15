@@ -4,9 +4,10 @@
   gather_facts: false
 
   tasks:
-    - name: List installed collections
-      command: ansible-galaxy collection list
+    - name: Check boto3
+      shell: python3 -c "import boto3; print(boto3.__version__)"
       register: result
+      ignore_errors: true
 
     - debug:
-        var: result.stdout_lines
+        var: result.stdout
