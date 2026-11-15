@@ -4,9 +4,9 @@
   gather_facts: false
 
   tasks:
-    - name: Create bucket in Floci
-      command: >
-        aws
-        --endpoint-url=http://host.docker.internal:4566
-        s3 mb s3://{{ bucket_name }}
-        --region {{ aws_region }}
+    - name: List installed collections
+      command: ansible-galaxy collection list
+      register: result
+
+    - debug:
+        var: result.stdout_lines
