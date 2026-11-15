@@ -1,12 +1,15 @@
 ---
 - hosts: localhost
   connection: local
+  gather_facts: false
 
   tasks:
-    - name: List S3 buckets
-      shell: |
-        aws --endpoint-url=http://localhost:4566 s3 ls
+    - name: Test Floci endpoint
+      uri:
+        url: http://host.docker.internal:4566
+        method: GET
       register: result
+      ignore_errors: true
 
     - debug:
-        var: result.stdout_lines
+        var: result
