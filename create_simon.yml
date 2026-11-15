@@ -3,5 +3,13 @@
   gather_facts: false
 
   tasks:
-    - name: Test connectivity
-      ping:
+    - name: Create DevOps folders
+      file:
+        path: "~/{{ item }}"
+        state: directory
+      loop:
+        - Git
+        - AWX
+        - Kubernetes
+        - Terraform
+        - Ansible
