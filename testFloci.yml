@@ -1,12 +1,12 @@
 ---
 - hosts: localhost
-  connection: local
-  gather_facts: false
-
-  tasks:
-    - name: Create bucket in AWS
-      amazon.aws.s3_bucket:
-        name: simon-bucket
-        state: present
-        endpoint_url: http://host.docker.internal:4566
-        region: ap-south-1
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: Create bucket
+      shell: |
+        aws s3 mb s3://simon-bucket \
+        --region ap-south-1
+      register: result
+    - debug:
+        var: result.stdout_lines
