@@ -4,12 +4,9 @@
   gather_facts: false
 
   tasks:
-    - name: Test Floci endpoint
-      uri:
-        url: http://host.docker.internal:4566
-        method: GET
-      register: result
-      ignore_errors: true
-
-    - debug:
-        var: result
+    - name: Create bucket in AWS
+      amazon.aws.s3_bucket:
+        name: simon-bucket
+        state: present
+        endpoint_url: http://host.docker.internal:4566
+        region: ap-south-1
