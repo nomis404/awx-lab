@@ -4,14 +4,9 @@
   gather_facts: false
 
   tasks:
-    - name: Create S3 bucket
-      uri:
-        url: "http://host.docker.internal:4566/simon-bucket"
-        method: PUT
-        status_code: [200]
-
-      register: result
-
-    - name: Show result
-      debug:
-        var: result.status
+    - name: Create bucket in Floci
+      command: >
+        aws
+        --endpoint-url=http://host.docker.internal:4566
+        s3 mb s3://{{ bucket_name }}
+        --region {{ aws_region }}
