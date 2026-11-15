@@ -4,13 +4,14 @@
   gather_facts: false
 
   tasks:
-    - name: Create bucket in Floci
+    - name: Create S3 bucket
       uri:
         url: "http://host.docker.internal:4566/simon-bucket"
         method: PUT
-        status_code: 200
+        status_code: [200]
 
       register: result
 
-    - debug:
+    - name: Show result
+      debug:
         var: result.status
