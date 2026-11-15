@@ -4,10 +4,39 @@
   gather_facts: false
 
   tasks:
-    - name: Check boto3
-      shell: python3 -c "import boto3; print(boto3.__version__)"
-      register: result
+
+    - name: Check AWS CLI
+      shell: which aws
+      register: awscli
       ignore_errors: true
 
-    - debug:
-        var: result.stdout
+    - name: Check boto3
+      shell: python3 -c "import boto3; print(boto3.__version__)"
+      register: boto3check
+      ignore_errors: true
+
+    - name: Check botocore
+      shell: python3 -c "import botocore; print(botocore.__version__)"
+      register: botocorecheck
+      ignore_errors: true
+
+    - name: Check amazon.aws collection
+      shell: ansible-galaxy collection list amazon.aws
+      register: collectioncheck
+      ignore_errors: true
+
+    - name: Show AWS CLI
+      debug:
+        var: awscli.stdout
+
+    - name: Show boto3
+      debug:
+        var: boto3check.stdout
+
+    - name: Show botocore
+      debug:
+        var: botocorecheck.stdout
+
+    - name: Show collection
+      debug:
+        var: collectioncheck.stdout_lines
