@@ -3,12 +3,5 @@
   gather_facts: false
 
   tasks:
-    - name: Create Simon directory
-      file:
-        path: ~/Simon
-        state: directory
-
-    - name: Create Test directory
-      file:
-        path: ~/Test
-        state: directory
+    - name: Test connectivity
+      ping:
