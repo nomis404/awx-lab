@@ -6,7 +6,7 @@
     - name: Create DevOps folders
       file:
         path: "~/{{ item }}"
-        state: directory
+        state: absent
       loop:
         - Git
         - AWX
